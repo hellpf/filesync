@@ -1,0 +1,47 @@
+{
+  "name": "filesync",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "readme": "README.md",
+  "dependencies": {
+    "chokidar": "^1.2.0",
+    "ncp": "^2.0.0",
+    "path": "^0.12.7",
+    "rmdir": "^1.1.0",
+    "stdio": "^0.2.7"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=4.2.0",
+    "npm": ">=2.14.4"
+  },
+  "author": {
+    "name": "Jan Loose",
+    "email": "jan@loose.cz"
+  },
+  "contributors": [
+    {
+      "name": "Jan Loose",
+      "email": "jan@loose.cz",
+      "url": "http://www.loose.cz/"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hellpf/filesync.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "sync",
+    "file",
+    "filesync",
+    "watch"
+  ],
+  "devDependencies": {
+    "eslint": "^1.9.0"
+  }
+}
