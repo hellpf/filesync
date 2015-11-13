@@ -26,11 +26,18 @@ var ops = stdio.getopt({
         args: 1,
         description: 'Target diectory or directories (sepearated by a semicolon)',
         mandatory: true
+    },
+    'syncDelete': {
+        key: 'd',
+        args: 0,
+        description: 'Sync delete changes?',
+        mandatory: false
     }
 });
 
 var sourceDir = ops.source,
-    targetDirs = ops.target.split(';');
+    targetDirs = ops.target.split(';'),
+    syncDelete = ops.syncDelete;
 
 var calcDir = function(dir) {
     if (dir.indexOf('/') !== 0) {
@@ -109,14 +116,18 @@ var startWatchingContent = function() {
                 console.log('copying file ' + displayedDestination);
                 ncp(path, destination, done.bind(this, 'copied file ' + displayedDestination));
             } else if (event == 'unlink') {
-                console.log('deleting file ' + displayedDestination);
-                fs.unlink(destination, done.bind(this, 'deleted file ' + displayedDestination));
+                if (syncDelete) {
+                    console.log('deleting file ' + displayedDestination);
+                    fs.unlink(destination, done.bind(this, 'deleted file ' + displayedDestination));
+                }
             } else if (event == 'addDir') {
                 console.log('copying directory ' + displayedDestination);
                 ncp(path, destination, done.bind(this, 'copied directory ' + displayedDestination));
             } else if (event == 'unlinkDir') {
-                console.log('deleting directory ' + displayedDestination);
-                rmdir(destination, done.bind(this, 'deleted directory ' + displayedDestination));
+                if (syncDelete) {
+                    console.log('deleting directory ' + displayedDestination);
+                    rmdir(destination, done.bind(this, 'deleted directory ' + displayedDestination));
+                }
             } else {
                 console.warn('unknown state: ' + event + ' ' + path);
             }
